@@ -1,0 +1,11 @@
+# Object files
+*.o
+
+# Executables
+a.out
+*.out
+*.exe
+
+# Documentation and media
+*.pdf
+*.mp4
