@@ -3,7 +3,6 @@
     .string "In fun(), Number is %d\n"
 
 .section .data
-    .globl g_iNo
     .type  g_iNo, @object
     .size  g_iNo, 4 
     .align 4
@@ -18,7 +17,7 @@ fun:
 			movl %esp, %ebp 			
 			
             movl 	g_iNo ,%eax
-            push    %eax
+            pushl    %eax
             pushl 	$msg_fun_print 
 			call 	printf
 			addl	$8, %esp
