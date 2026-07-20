@@ -22,7 +22,8 @@ main:
     movl    %edx, -16(%ebp)  # POST INCREMENT iAns2 = iNo2++
     addl    $1, -8(%ebp)   
 
-    movl    -8(%ebp),%ecx   # value catched for iAns2 in ecx not edx now
+    movl    -8(%ebp),%ecx   # # ECX = incremented iNo2 (21) 
+    # leal 1(%edx), %ecx    # for above alternative
     pushl   %edx            # iAns2
     pushl   %eax            # iAns1
     pushl   %ecx            # iNo2 : captured post increment
