@@ -4,7 +4,7 @@
     msg_main_print:
     .string "Enter number : \t"
     msg_main_scan:
-    .string "%d\n"
+    .string "%d"
     msg_main_print_after_scan:
     .string "After scanning , g is %d\n"
 
