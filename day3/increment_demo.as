@@ -2,7 +2,7 @@
     msg_main_print:
     .string "iNo1 = %d\niNo2 = %d\niAns1= %d \niAns2 = %d\n"
 
-.section. .text
+.section .text
 .globl   main
 .type    main, @function
 main:
