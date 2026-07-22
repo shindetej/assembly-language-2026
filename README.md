@@ -1,6 +1,4 @@
-```
-ही Repo "Void Derivatives" चे स्वप्निल सर यांनी 2026 मध्ये घेतलेल्या Assembly Language Programming बॅचमधील स्वतः लिहिलेला कोडचा संग्रह आहे.या प्रवासाचा उद्देश केवळ Programming शिकणे नसून, C भाषेच्या खालील स्तरावर जाऊन हार्डवेअरशी सॉफ्टवेअरचा संवाद कसा घडतो हे समजून घेण्याच्या वैयक्तिक आवडीपोटी...
-```
+
 ---
 # Assembly Language Programming (x86 - 32-bit) using GNU Assembler (GAS)
 
@@ -62,7 +60,9 @@ assembly-language-2026/
 ├── day3/
 └── ...
 ```
-
+```
+ही Repo "Void Derivatives" चे स्वप्निल सर यांनी 2026 मध्ये घेतलेल्या Assembly Language Programming बॅचमधील स्वतः लिहिलेला कोडचा संग्रह आहे.या प्रवासाचा उद्देश केवळ Programming शिकणे नसून, C भाषेच्या खालील स्तरावर जाऊन हार्डवेअरशी सॉफ्टवेअरचा संवाद कसा घडतो हे समजून घेण्याच्या वैयक्तिक आवडीपोटी...
+```
 ## Naming Convention
 
 * `.c` → Reference C implementation.
