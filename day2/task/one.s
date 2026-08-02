@@ -40,11 +40,11 @@ main:
         call scanf
         addl $12,%esp 
         
-        movl -4(%ebp), %edx  # edx = iNo3
+        movl -4(%ebp), %edx     # edx = iNo3
         pushl %edx
         movl iNo2, %eax         # eax = iNo2
         pushl %eax
-        movl iNo1, %eax          # eax = iNo1
+        movl iNo1, %eax         # eax = iNo1
         pushl %eax
         pushl $msg_main_print2
         call printf
