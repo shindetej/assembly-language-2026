@@ -5,7 +5,8 @@ int main(void)
 {
     int iNo1;
     int iNo2;
-    long long iAns; // 8 byte
+    int iQuo;
+    int iRem;
 
     printf("Enter operand 1: \t");
     scanf("%d",&iNo1);
@@ -13,7 +14,9 @@ int main(void)
     printf("Enter operand 2: \t");
     scanf("%d",&iNo2);
 
-    iAns =  iNo1 * iNo2;
-    printf("Multiplication is %qd\n",iAns);
+    iQuo =  iNo1 / iNo2;
+    iRem =  iNo1 % iNo2;
+    printf("Quotient is %d\n",iQuo);
+    printf("Reminder is %d\n",iRem);
     exit(0);
 }
