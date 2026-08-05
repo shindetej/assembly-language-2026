@@ -24,19 +24,15 @@
 			.string "Are you want to enter more choice?(1/0):\t"
 
 .section .text
-.global main
+.globl main
 .type	main, @function
 main:
 			pushl %ebp
-			movl %esp, %ebp 			# C: create stack frame for main()
+			movl %esp, %ebp 			
 			
 			subl $16,%esp  				# reserve 16 bytes for iNo1, iNo2, iAns, iCh
-											# -4(%ebp)  = iNo1
-											# -8(%ebp)  = iNo2
-											# -12(%ebp) = iAns
-											# -16(%ebp) = iCh
 
-label_do:									# C: do
+label_do:									# do
 			pushl $msg_main_menu
 			call printf
 			addl $4,%esp
@@ -51,8 +47,8 @@ label_do:									# C: do
 			call scanf
 			addl $8,%esp
 
-			# C: if(iCh > 0 && iCh < 5)
-			movl -16(%ebp),%eax			# eax = iCh
+			# if(iCh > 0 && iCh < 5)
+			movl -16(%ebp),%eax				# eax = iCh
 			cmpl $0,%eax
 			jle label_skip_input			# if iCh <= 0, skip taking numbers
 			cmpl $5,%eax
@@ -72,7 +68,7 @@ label_do:									# C: do
 
 label_skip_input:
 
-			# C: switch(iCh)
+			# switch(iCh)
 			movl -16(%ebp),%eax				# eax = iCh
 			cmpl $1,%eax
 			je label_case1
@@ -156,7 +152,7 @@ label_switch_end:
 			call scanf
 			addl $8,%esp
 
-			# C: while(iCh == 1)
+			# while(iCh == 1)
 			movl -16(%ebp),%eax
 			cmpl $1,%eax
 			je label_do
@@ -165,13 +161,13 @@ label_switch_end:
 			call exit
 
 
-.global 	Addition
+.globl 	Addition
 .type 	Addition, @function
 Addition:
 			pushl %ebp
-			movl %esp,%ebp				# Create stack frame
+			movl %esp,%ebp				# Create stack frame for Addition()
 
-			subl 	$4,%esp				# Reserve 4 bytes: for int sum
+			subl 	$4,%esp				# sum
 
 			movl 8(%ebp), %eax			# eax = iNo1
 			movl 12(%ebp), %edx			# edx = iNo2
@@ -183,13 +179,13 @@ Addition:
 			ret							# return iNo1 + iNo2;
 
 
-.global 	Subtraction
+.globl 	Subtraction
 .type 	Subtraction, @function
 Subtraction:
 			pushl %ebp
-			movl %esp,%ebp				# Create stack frame
+			movl %esp,%ebp				# Create stack frame for Subtraction()
 
-			subl 	$4,%esp				# Reserve 4 bytes: for int diff
+			subl 	$4,%esp				#  diff
 
 			movl 8(%ebp), %eax			# eax = iNo1
 			movl 12(%ebp), %edx			# edx = iNo2
@@ -201,13 +197,13 @@ Subtraction:
 			ret							# return iNo1 - iNo2;
 
 
-.global 	Multiplication
+.globl 	Multiplication
 .type 	Multiplication, @function
 Multiplication:
 			pushl %ebp
-			movl %esp,%ebp				# Create stack frame
+			movl %esp,%ebp				# Create stack frame for Multiplication()
 
-			subl 	$4,%esp				# Reserve 4 bytes: for int prod
+			subl 	$4,%esp				#  prod
 
 			movl 8(%ebp), %eax			# eax = iNo1
 			movl 12(%ebp), %ecx			# ecx = iNo2
@@ -219,18 +215,18 @@ Multiplication:
 			ret							# return iNo1 * iNo2;
 
 
-.global 	Division
+.globl 	Division
 .type 	Division, @function
 Division:
 			pushl %ebp
-			movl %esp,%ebp				# Create stack frame
+			movl %esp,%ebp				# Create stack frame for Division()
 
-			subl 	$4,%esp				# Reserve 4 bytes: for int quo
+			subl 	$4,%esp				# quo
 
-			movl 8(%ebp), %eax			# eax = iNo1  (dividend)
-			cltd							# sign-extend eax into edx (signed division)
-			movl 12(%ebp), %ecx			# ecx = iNo2  (divisor)
-			idivl %ecx					# eax = iNo1 / iNo2, edx = remainder (unused)
+			movl 8(%ebp), %eax			# eax = iNo1  
+			xorl %edx, %edx				# Zero-out edx 
+			movl 12(%ebp), %ecx			# ecx = iNo2  
+			divl %ecx					# eax = iNo1 / iNo2
 			movl  %eax,-4(%ebp)			# return value in eax
 
 			movl %ebp, %esp
