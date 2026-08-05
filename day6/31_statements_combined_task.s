@@ -133,7 +133,7 @@ label_default:								# default:
 			addl $4,%esp
 
 			movl $1,-16(%ebp)				# iCh = 1;
-			jmp label_do						# continue;  -> jumps back to top of do-while
+			jmp label_do					# continue;  -> jumps back to top of do-while
 
 label_switch_end:
 
@@ -207,7 +207,7 @@ Multiplication:
 
 			movl 8(%ebp), %eax			# eax = iNo1
 			movl 12(%ebp), %ecx			# ecx = iNo2
-			imull %ecx, %eax				# eax = iNo1 * iNo2   (signed multiply)
+			mull %ecx, %eax				# eax = iNo1 * iNo2   (signed multiply)
 			movl  %eax,-4(%ebp)			# return value in eax
 
 			movl %ebp, %esp
