@@ -23,20 +23,20 @@ main:
 
     subl    $4,%esp
 
-    pushl   msg_main_print1
+    pushl   $msg_main_print1
     call    printf
     addl    $4,%esp
 
     leal    -4(%ebp), %eax
     pushl   %eax
-    pushl   msg_main_scanf
+    pushl   $msg_main_scanf
     call    scanf
     addl    $8, %esp
 
     movl    -4(%ebp), %eax
     cmpl    $2, %eax
     jnl     label_not_less
-    pushl   msg_main_print2
+    pushl   $msg_main_print2
     call    printf
     addl    $4,%esp
     jmp     label_exit
@@ -44,13 +44,13 @@ main:
 label_not_less:
    # cmpl    $2,%eax
     jng      label_equal
-    pushl   msg_main_print3
+    pushl   $msg_main_print3
     call    printf
     addl    $4,%esp
     jmp     label_exit
 
 label_equal:
-    pushl   msg_main_print4
+    pushl   $msg_main_print4
     call    printf
     addl    $4,%esp
   #  jmp     label_exit

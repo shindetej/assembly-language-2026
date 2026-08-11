@@ -31,24 +31,24 @@ main:
     call scanf
     addl $12,%esp
     
-    # SumDiff(iNo1, iNo2, &iSum, &iDiff);
-    leal -16(%ebp), %eax			# eax = &iDiff
-    leal -12(%ebp), %edx			# edx = &iSum
-    pushl %eax						# push &iDiff (4th arg, pushed first)
-    pushl %edx						# push &iSum  (3rd arg)
-    movl -8(%ebp),%eax				# eax = iNo2
-    pushl %eax						# push iNo2   (2nd arg)
-    movl -4(%ebp),%eax				# eax = iNo1
-    pushl %eax						# push iNo1   (1st arg, pushed last)
+    # USE eax,edx,ecx,ebx in sequence
+    movl -4(%ebp), %eax       # iNo1
+    movl -8(%ebp), %edx       # iNo2
+    leal -12(%ebp), %ecx      # &iSum
+    leal -16(%ebp), %ebx      # &iDiff
+    pushl %ebx               
+    pushl %ecx                
+    pushl %edx                # iNo2
+    pushl %eax                # iNo1
     call SumDiff
-    addl $16,%esp					# clean up 4 arguments (4 x 4 bytes)
+    addl $16, %esp				
     
-    pushl -12(%ebp)					# push iSum
+    pushl -12(%ebp)					
     pushl $msg_main_print2
     call printf
     addl $8,%esp
     
-    pushl -16(%ebp)					# push iDiff
+    pushl -16(%ebp)					
     pushl $msg_main_print3
     call printf
     addl $8,%esp
@@ -71,7 +71,6 @@ SumDiff:
     movl %eax,(%ebx)     # *piSum = eax 
 
     movl 8(%ebp),%eax
-    movl 12(%ebp),%edx
     subl %edx,%eax
     movl 20(%ebp),%ebx
     movl %eax,(%ebx)     # *piDiff = eax 
