@@ -1,20 +1,15 @@
 # Object files
 *.o
-*.out
-*.out
-*.out
-*.out
-*.out
-*.out
-*.out
-*.out
+
 
 # Executables
 a.out
-*.out
 *.exe
+*.out
+
 
 # Documentation and media
 *.pdf
 *.mp4
 temp-note.txt
+.swp
