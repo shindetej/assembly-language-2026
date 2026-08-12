@@ -42,7 +42,7 @@ main:
     pushl   %ebp
     movl    %esp, %ebp
 
-    subl    $24, %esp        # -24/-20/-16(%ebp)=obj2, -12/-8/-4(%ebp)=obj3
+    subl    $24, %esp        # obj2  -24 to -16,obj3 -12 to -4(%ebp)
 
     movb    $'B', -24(%ebp)  # obj2.chChar
     movl    $30,  -20(%ebp)  # obj2.iNo
@@ -52,16 +52,15 @@ main:
     movl    $30,   -8(%ebp)  # obj3.iNo
     movw    $40,   -4(%ebp)  # obj3.shiNo
 
-    # -------- printf("obj1 is\n"); --------
     pushl   $msg_main_print_obj1
     call    printf
     addl    $4,%esp
 
     leal    obj1, %ebx
-    xorl    %eax,%eax
+    xorl    %eax,%eax       # zero out before loading data to al
     movb    (%ebx),%al
     movl    4(%ebx),%edx
-    xorl    %ecx,%ecx
+    xorl    %ecx,%ecx       # zero out before loading data to cx
     movw    8(%ebx),%cx
     pushl   %ecx
     pushl   %edx
@@ -70,7 +69,6 @@ main:
     call    printf
     addl    $16,%esp
 
-    # -------- printf("obj2 is\n"); --------
     pushl   $msg_main_print_obj2
     call    printf
     addl    $4,%esp
@@ -88,7 +86,6 @@ main:
     call    printf
     addl    $16,%esp
 
-    # -------- printf("obj3 is\n"); --------
     pushl   $msg_main_print_obj3
     call    printf
     addl    $4,%esp
@@ -110,27 +107,23 @@ main:
     # ==================================================
     # if(obj1.chChar==obj2.chChar && obj1.iNo==obj2.iNo
     #    && obj1.shiNo==obj2.shiNo)
-    #   printf("equal\n");
-    # else
-    #   printf("not equal\n");
-    # short-circuit: first false comparison jumps straight
-    # to "not equal", remaining comparisons are skipped.
     # ==================================================
     pushl   $msg_main_cmp12
     call    printf
     addl    $4,%esp
 
-    movb    obj1, %al          # obj1.chChar
-    movb    -24(%ebp), %bl     # obj2.chChar
-    cmpb    %bl, %al
+    leal    obj1, %ebx         # %ebx = &obj1 
+    movb    (%ebx), %al        # obj1.chChar
+    movb    -24(%ebp), %dl     # obj2.chChar
+    cmpb    %dl, %al
     jne     label_cmp12_not_equal
 
-    movl    obj1+4, %eax       # obj1.iNo
+    movl    4(%ebx), %eax      # obj1.iNo
     movl    -20(%ebp), %edx    # obj2.iNo
     cmpl    %edx, %eax
     jne     label_cmp12_not_equal
 
-    movw    obj1+8, %ax        # obj1.shiNo
+    movw    8(%ebx), %ax       # obj1.shiNo
     movw    -16(%ebp), %dx     # obj2.shiNo
     cmpw    %dx, %ax
     jne     label_cmp12_not_equal
@@ -146,14 +139,9 @@ label_cmp12_not_equal:
     addl    $4,%esp
 
 label_cmp12_done:
-
-
     # ==================================================
     # if(obj3.chChar==obj2.chChar && obj3.iNo==obj2.iNo
     #    && obj3.shiNo==obj2.shiNo)
-    #   printf("equal\n");
-    # else
-    #   printf("not equal\n");
     # ==================================================
     pushl   $msg_main_cmp23
     call    printf
@@ -185,7 +173,7 @@ label_cmp23_not_equal:
     addl    $4,%esp
 
 label_cmp23_done:
-
-
     pushl   $0
     call    exit
+
+    

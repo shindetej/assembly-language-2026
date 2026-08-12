@@ -23,7 +23,7 @@ int main(void)
     printf("chChar = %c, iNo = %d, shiNo = %hd\n\n", obj3.chChar, obj3.iNo, obj3.shiNo);
 
     printf("obj1 & obj2 comparison is ");
-    if(obj1.chChar == obj2.chChar && obj1.iNo == obj2.iNo && obj1.shiNo == obj1.shiNo)
+    if(obj1.chChar == obj2.chChar && obj1.iNo == obj2.iNo && obj1.shiNo == obj2.shiNo)
         printf("equal\n");
     else
         printf("not equal\n");

@@ -97,28 +97,26 @@ main:
     call    printf
     addl    $16,%esp
 
-   
-  # obj2 members assigned to obj1
-    leal    obj1, %ebx           # %ebx = &obj1
 
-    movb    -24(%ebp), %al
-    movb    %al, (%ebx)          # obj1.chChar = obj2.chChar
+    # ---- smart copy: obj1 = obj2 (whole struct, dword-at-a-time) ----
+    leal    -24(%ebp), %ebx      # %ebx = &obj2 (source)
+    leal    obj1, %edx           # %edx = &obj1 (destination)
+    movl    (%ebx), %eax
+    movl    %eax, (%edx)         # dword 0 : chChar + padding
+    movl    4(%ebx), %eax
+    movl    %eax, 4(%edx)        # dword 1 : iNo
+    movl    8(%ebx), %eax
+    movl    %eax, 8(%edx)        # dword 2 : shiNo + padding
 
-    movl    -20(%ebp), %eax
-    movl    %eax, 4(%ebx)        # obj1.iNo = obj2.iNo
 
-    movw    -16(%ebp), %ax
-    movw    %ax, 8(%ebx)         # obj1.shiNo = obj2.shiNo
-
-    # obj2 members assigned to local obj3
-    movb    -24(%ebp), %al
-    movb    %al, -12(%ebp)       # obj3.chChar = obj2.chChar
-
-    movl    -20(%ebp), %eax
-    movl    %eax, -8(%ebp)       # obj3.iNo = obj2.iNo
-
-    movw    -16(%ebp), %ax
-    movw    %ax, -4(%ebp)        # obj3.shiNo = obj2.shiNo
+    leal    -24(%ebp), %ebx      # %ebx = &obj2 (source)
+    leal    -12(%ebp), %edx      # %edx = &obj3 (destination)
+    movl    (%ebx), %eax
+    movl    %eax, (%edx)         # dword 0 : chChar + padding
+    movl    4(%ebx), %eax
+    movl    %eax, 4(%edx)        # dword 1 : iNo
+    movl    8(%ebx), %eax
+    movl    %eax, 8(%edx)        # dword 2 : shiNo + padding
 
 
     pushl   $msg_main_print_obj1
