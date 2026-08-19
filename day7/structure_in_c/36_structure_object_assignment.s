@@ -32,7 +32,8 @@
     msg_main_print_values:
     .string "chChar = %c, iNo = %d, shiNo = %hd\n"
 
-.comm   obj1, 12, 4
+.section .bss
+  .comm   obj1, 12, 4
 
 .section .text
 .globl  main
