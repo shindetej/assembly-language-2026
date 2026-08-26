@@ -32,6 +32,37 @@ Address = -12 + %ebp + (%eax × 4)
 
 ---
 
+## Addressing Modes
+
+An **addressing mode** is the way an instruction specifies the location of its operand (where to find the data).
+
+| Addressing Mode        | Meaning                                              | Assembly Example  |
+| ----------------------- | ----------------------------------------------------- | ------------------ |
+| Immediate                | Operand value is given directly in the instruction    | `movl $5, %eax`    |
+| Register                 | Operand is inside a register                          | `movl %ebx, %eax`  |
+| Direct (Displacement)    | Operand is at a fixed memory address (label)          | `movl arr, %eax`   |
+| Register Indirect        | Address of operand is held in a register              | `movl (%ebx), %eax`|
+| Indexed (Index)          | Address = Base + (Index × Scale), used to walk arrays | `arr(,%eax,4)`     |
+| Base + Index + Displacement | Address = Displacement + Base + (Index × Scale)    | `-12(%ebp,%eax,4)` |
+
+### Index Addressing Mode
+
+**Index addressing mode** uses an **index register** whose value is multiplied by a **scale** (element size) and added to a **base address** to reach an array element. This is exactly what makes array traversal possible in a loop — the index register (`%eax` above) changes on each iteration while the base stays fixed.
+
+```text
+Effective Address = Base + (Index × Scale)
+```
+
+```asm
+arr(,%eax,4)     # Base = arr, Index = %eax, Scale = 4
+```
+
+- **Index register:** holds the array subscript (e.g., loop counter `i`).
+- **Scale:** size of one array element in bytes (1, 2, 4, or 8 only, as per x86 encoding rules).
+- Combined with a **displacement** and/or **base register**, this becomes the general GAS form `displacement(base, index, scale)` used for local/dynamic arrays (see scenarios III and IV below).
+
+---
+
 ## Array Addressing Scenarios
 
 | Scenario | Offset Address | Base Address | Meaning                        | Assembly Example   | Address Calculation       |

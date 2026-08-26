@@ -1,5 +1,5 @@
 .section .rodata
-    msg_main_print1:
+    msg_main_print:
     .string "%d\n"
 
 .section .text
@@ -13,25 +13,25 @@ main:
 
     leal -48(%ebp), %ebx
     pushl %ebx
-    pushl $msg_main_print1
+    pushl $msg_main_print
     call printf
     addl $8, %esp
 
     movl $4, %eax          # sizeof(int)
     movl $4, %ecx          # elements per row
     mull %ecx               # eax = 4 * 4 = 16 (row stride in bytes)
-    movl %eax, %ecx          # ecx = 16
+    movl %eax, %ecx         
 
-    movl $2, %eax           # counter1 = row index
+    movl $2, %eax           
     mull %ecx                # eax = counter1 * 16 = 2 * 16 = 32
 
     leal -48(%ebp), %ebx     # ebx = base address (&arr)
-    addl %eax, %ebx           # ebx = base_address + 32 = &arr[2][0]
+    addl %eax, %ebx           
 
     movl $3, %eax
-    leal (%ebx, %eax, 4), %ebx   # ebx = &arr[2][3]
+    leal (%ebx, %eax, 4), %ebx  
     pushl %ebx
-    pushl $msg_main_print1
+    pushl $msg_main_print
     call printf
     addl $8, %esp
 
@@ -39,5 +39,5 @@ main:
     call exit
 
 
--2718532
--2718488
+# -2718532
+# -2718488
